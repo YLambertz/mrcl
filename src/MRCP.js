@@ -1,6 +1,6 @@
 import debug from 'debug'
 import EventEmitter from 'events'
-import protocol from '../src/protocolDefinitions'
+import protocol from '../src/protocolDefinitions.js'
 
 export default class MRCP extends EventEmitter {
   constructor(command, mril) {

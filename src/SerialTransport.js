@@ -1,6 +1,6 @@
 import SerialPort from 'serialport'
 import debug from 'debug'
-import Transport from './Transport'
+import Transport from './Transport.js'
 
 
 const log = debug('SerialTransport')
@@ -62,7 +62,7 @@ export default class SerialTransport extends Transport {
     process.on('uncaughtException', exitHandler.bind(this, { exit: true }))
   }
   transmit(data, cb) {
-    if (!this.SerialPort.isOpen()) {
+    if (!this.SerialPort.isOpen) {
       this.buffer.push({ data, cb })
     } else {
       // SP Buffers data, if the port is not open

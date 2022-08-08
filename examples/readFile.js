@@ -13,9 +13,9 @@
   MRIL,
   protocol,
   SerialTransport,
-} from '../src/index'
- import MRILCompressor from './MRILCompressor'
- import StatusHelper from './StatusHelper'
+} from '../src/index.js'
+ import MRILCompressor from './MRILCompressor.js'
+ import StatusHelper from './StatusHelper.js'
 
  const log = debug('readFile')
 
@@ -46,14 +46,15 @@
    })
 
    let mril
-   const Compressor = new MRILCompressor()
+   //const Compressor = new MRILCompressor()
 
    lineReader.on('line', (line) => {
-     console.log('reading line: ', line)
-     const compressedLine = Compressor.compress(line)
-     if (compressedLine.length === 0) return // skip empty lines
+    // console.log('reading line: ', line)
+    // const compressedLine = Compressor.compress(line)
+     //if (compressedLine.length === 0) return // skip empty lines
      // remove redundant instructions to save space on eeprom
-     mril = new MRIL(compressedLine)
+    // mril = new MRIL(compressedLine)
+     mril = new MRIL(line)            //nicht komprimierte Datei an Rob senden !!Achtung!! 
      const cmd = new MRCP(mode, mril)
      mrcl.send(cmd)
    }).on('close', () => {
@@ -72,13 +73,13 @@
  if (fileArg && portArg) {
    sendFile(portArg, fileArg, modeArg)
  } else {
-   SerialPort.list((err, ports) => {
+  SerialPort.list().then(ports => {
      prompt([
        {
          type: 'list',
          name: 'port',
          message: 'Select serial port',
-         choices: ports.map(el => el.comName),
+         choices: ports.map(el => el.path), //el => el.path
        },
        {
          type: 'input',

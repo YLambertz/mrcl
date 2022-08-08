@@ -1,7 +1,7 @@
 import debug from 'debug'
-import protocol from '../src/protocolDefinitions'
-import MRIL from './MRIL'
-import MRCP from './MRCP'
+import protocol from '../src/protocolDefinitions.js'
+import MRIL from './MRIL.js'
+import MRCP from './MRCP.js'
 
 const log = debug('MRIB')
 

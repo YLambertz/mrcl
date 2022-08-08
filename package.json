@@ -3,6 +3,7 @@
   "description": "micropede robot control library",
   "main": "dist/index.js",
   "version": "0.0.0-semantic-release-controlled",
+  "type": "module",
   "scripts": {
     "commit": "git-cz",
     "test": "mocha ./test/*.test.js --compilers js:babel-register",
@@ -64,7 +65,8 @@
   },
   "dependencies": {
     "debug": "2.6.1",
-    "serialport": "4.0.7"
+    "readline": "^1.3.0",
+    "serialport": "^9.0.6"
   },
   "optionalDependencies": {
     "cheerio": "1.0.0-rc.1",

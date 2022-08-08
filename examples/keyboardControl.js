@@ -9,9 +9,11 @@ import readline from 'readline'
 import MRCL, {
   MRIB,
   SerialTransport,
-} from '../src/index'
+} from '../src/index.js' //'../src/index'
 
-import StatusHelper from './StatusHelper'
+
+
+//import StatusHelper from './StatusHelper'
 
 const prompt = inquirer.createPromptModule()
 let x = 18
@@ -23,20 +25,29 @@ let c = 0
 let step = 1
 let programm = ''
 
-SerialPort.list((err, ports) => {
+//Test 
+
+
+//Test
+//console.log("Test Ende")
+
+SerialPort.list().then(ports => { //SerialPort.list((err, ports) =>
+ 
   prompt([
     {
       type: 'list',
       name: 'port',
       message: 'Select serial port',
-      choices: ports.map(el => el.comName),
+      choices: ports.map(el => el.path) //el => el.path
+     
     },
   ]).then((answers) => {
-    const port = answers.port
-
+    
+    const port = answers.port //'Com3' µ
+ 
     const transport = new SerialTransport({
       port,
-      bausRate: 9600,
+      baudRate: 9600,
     })
     const mrcl = new MRCL(transport, {
       autoTransmit: true,
@@ -153,3 +164,4 @@ SerialPort.list((err, ports) => {
     })
   })
 })
+
